@@ -41,7 +41,6 @@ def guardarPedidos(dataPedidos):
 Todo = True
 while Todo == True:
     MenuTodo = abrirMenu()
-
     booleanoMenu = True
 
     while booleanoMenu == True:
@@ -58,78 +57,81 @@ while Todo == True:
             system("cls")
 
     if seleccion == 1:
-        entra = int(input("(1).Entrada: \n(2).Plato Fuerte: \n(3).Bebida: "))
-        nombreCliente = input("Ingrese Nombre del Cliente: ")
-        contMenu = 1
-        contMenuPla = 1
-        contMenuBebi = 1
-        
-        num = 0
-        numPlato = 0
-        numBebi = 0
-        if entra == 1:
+        nombreCliente = input("Ingrese el Nombre del Cliente: ")
+
+        itemPedido = []
+        boolPedido = True
+        while boolPedido == True:
+
+            contMenu = 1
             menu = abrirMenu()
             print("---------")
             print("  Menu   ")
             print("---------")
-            
-            
-            for i in menu:
                 
-                if i["categoria"] == "entrada":
-                    if num == 0:
-                        print("Entradas")
-                        print("--------")
-                        num += 1
-                    print(contMenu,i["categoria"],":", i["nombre"], i["precio"])
+                
+            for i in menu:
+                    
+                        
+                print(contMenu,i["categoria"],":", i["nombre"] ,"$",i["precio"])
 
-                    contMenu +=1
+                contMenu +=1
+
 
             eleEntra = int(input("Ingrese el id de la entrada: "))
+            eleCategoria = menu[eleEntra-1]["categoria"]
             eleNombre = menu[eleEntra-1]["nombre"]
             precio = menu[eleEntra-1]["precio"]
-            
-            pedidos = abrirPedidos()
-            pedidos.append({
-                "cliente": nombreCliente,
-                "items": [
-                {
-                "categoria": "entrada",
-                "nombre": eleNombre,
-                "precio": precio
-                }]})
-            guardarPedidos(menu)
-            
-        if entra == 2:
-            menu = abrirMenu()
-            for i in menu:
-                if i["categoria"] == "plato_fuerte":
-                    if numPlato == 0:
-                        print("------------")
-                        print("Plato Fuerte")
-                        print("------------")
-                    numPlato += 1
-                
-                    print(contMenuPla,i["categoria"], i["nombre"], i["precio"])
-                    contMenuPla += 1
-                
-            
-        
-        if entra == 3:
-            menu = abrirMenu()
-            for i in menu:
-                if i["categoria"] == "bebida":
-                    if numBebi == 0:
-                        print("------------")
-                        print("Bebidas")
-                        print("------------")
-                        numBebi += 1
-                    print(contMenuBebi,i["categoria"], i["nombre"], i["precio"])
-                    contMenuBebi += 1
-                
+
+
+            itemPedido.append({
+                    "categoria": eleCategoria,
+                    "nombre": eleNombre,
+                    "precio": precio
+                    })
             
 
+            seguir = int(input("Desea Seguir agregando mas items al pedido?: (1).Si.  (2).No "))
+            if seguir == 2:
+                boolPedido = False
+
+
         
+        pedidos = abrirPedidos()
+        pedidos.append({
+                "cliente": nombreCliente,
+                "items": itemPedido,
+                "estado": "creado"
+                }
+                )
+        guardarPedidos(pedidos)
+        print("se guardo el pedido")
+            
+                
+            
+    if seleccion == 2:
+        pedido = abrirPedidos()
+        conta = 1
+        for i in pedido:
+
+
+            print(conta, i["cliente"],"|","Estado del Pedido: ", i["estado"])
+            conta += 1
+
+        estado = int(input("que pedido desea Modificar?: "))
+
+
+        nuevoestado = int(input("(1).Preparacion (2).Servido  (3).No modificar"))
+
+        if nuevoestado == 1:
+            pedido[estado-1]["estado"] = "preparacion"
+
+        if nuevoestado == 2:
+            pedido[estado-1]["estado"] = "preparacion"
+
+        if nuevoestado == 3:
+            break
+    guardarPedidos(pedido)
 
 
 

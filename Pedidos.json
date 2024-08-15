@@ -60,7 +60,7 @@
                 "precio": 8000
             }
         ],
-        "estado": "creado"
+        "estado": "preparacion"
     },
     {
         "cliente": "Ana Martinez",
@@ -90,6 +90,22 @@
                 "categoria": "entrada",
                 "nombre": "Tostada Francesa",
                 "precio": 10000
+            }
+        ],
+        "estado": "creado"
+    },
+    {
+        "cliente": "Wilmer",
+        "items": [
+            {
+                "categoria": "Plato Fuerte",
+                "nombre": "Pasta Bolognesa",
+                "precio": 35000
+            },
+            {
+                "categoria": "Bebida",
+                "nombre": "Vino",
+                "precio": 8000
             }
         ],
         "estado": "creado"
