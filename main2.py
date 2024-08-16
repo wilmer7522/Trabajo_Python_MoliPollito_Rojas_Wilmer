@@ -1,6 +1,7 @@
 import json
 from os import system
 from datetime import date
+from collections import defaultdict
 
 #Menu
 def abrirMenu():
@@ -131,7 +132,34 @@ while Todo == True:
 
         if nuevoestado == 3:
             break
-    guardarPedidos(pedido)
+        guardarPedidos(pedido)
+
+
+    if seleccion == 3:
+        pedidoPagar = abrirPedidos()
+        conta = 1
+        for i in pedidoPagar:
+            
+            
+            print(conta, i["cliente"],i["items"])
+            conta += 1
+            
+
+        estado = int(input("que pedido desea Pagar?: "))
+        
+        
+
+        
+        nuevoestado = int(input("(1).Preparacion (2).Servido  (3).No modificar"))
+
+        if nuevoestado == 1:
+            pedidoPagar[estado-1]["estado"] = "pagado"
+
+        
+
+        if nuevoestado == 3:
+            break
+        guardarPedidos(pedido)
 
 
 
