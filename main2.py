@@ -50,7 +50,7 @@ while Todo == True:
         print("---------------------------------") 
 
         try:
-            seleccion = int(input("(1).Tomar pedido | (2).Estado del Pedido: | (3).Pagar Pedidos:  \nIngrese opcion: "))
+            seleccion = int(input("(1).Tomar pedido | (2).Estado del Pedido: | (3).Pagar Pedidos:  (4).Cambiar Pedido: (5).Salir \nIngrese opcion: "))
         
             booleanoMenu = False
         except ValueError:
@@ -139,9 +139,11 @@ while Todo == True:
         pedidoPagar = abrirPedidos()
         conta = 1
         for i in pedidoPagar:
-            
-            
-            print(conta, i["cliente"],i["items"])
+            total = 0
+            for a in i["items"]:
+                total = total + a["precio"]
+
+            print(conta, i["cliente"], total)
             conta += 1
             
 
@@ -150,17 +152,23 @@ while Todo == True:
         
 
         
-        nuevoestado = int(input("(1).Preparacion (2).Servido  (3).No modificar"))
+        nuevoestado = int(input("(1).Pagar (2).No pagar "))
 
         if nuevoestado == 1:
             pedidoPagar[estado-1]["estado"] = "pagado"
 
         
+        guardarPedidos(pedidoPagar)
 
-        if nuevoestado == 3:
+        if nuevoestado == 2:
+            input("Hasta pronto")
             break
-        guardarPedidos(pedido)
-
+        
+    if seleccion == 4:
+        cambiar = abrirPedidos()
+        conta = 1
+        for i in cambiar:
+            print(conta,i["cliente"])
 
 
     if seleccion == 5: 
